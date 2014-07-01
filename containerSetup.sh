@@ -1,3 +1,4 @@
+#!/bin/bash
 export LC_ALL="en_US.UTF-8"
 export SCIDB_VER=14.3
 export PATH=$PATH:/opt/scidb/$SCIDB_VER/bin:/opt/scidb/$SCIDB_VER/share/scidb
