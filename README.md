@@ -29,3 +29,18 @@ Instructions:
 </ol> 
 
 NOTES:
+Changing SciDB setup requires modifying config.ini. For example, changing single instance default configuration for one with 7 instances would require changing the lines:
+
+<ul>
+<li>yes | scidb.py initall scidb_docker</li>
+<li>scidb.py startall scidb_docker</li>
+<li>scidb.py status scidb_docker</li>
+</ul>
+
+
+For these:
+<ul>
+<li>yes | scidb.py initall scidb_docker_bigdata</li>
+<li>scidb.py startall scidb_docker_bigdata</li>
+<li>scidb.py status scidb_docker_bigdata</li>
+</ul>
