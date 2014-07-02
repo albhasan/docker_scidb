@@ -14,9 +14,10 @@ Files:
 Instructions
 
 <ol>
-<li>Donwload the files to a folder</li>
+<li>Clone/Donwload the files to a folder</li>
 <li>Modify scripts to fit your needs</li>
+<li>CHMOD the SH files</li>
 <li>Execute setup.sh. NOTE: This will remove the stopped containers and unused docker images</li>
 <li>Log in your container</li>
-<li>Execute containerSetup.sh</li>
+<li>Execute containerSetup.sh inside the container</li>
 </ol> 
