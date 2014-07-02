@@ -14,10 +14,14 @@ Files:
 Instructions
 
 <ol>
-<li>Clone/Donwload the files to a folder</li>
+<li>Clone the project to a folder</li>
 <li>Modify scripts to fit your needs</li>
+	<ol>
+		<li><b>NOTE</b>: setup.sh removes the stopped containers and the unused images, ALL OF THEM!</li>
+		<li>The Dockerfile sets up the passwords for root, postgres and scidb users</li>
+	</ol> 
 <li>CHMOD the SH files</li>
 <li>Execute setup.sh. NOTE: This will remove the stopped containers and unused docker images</li>
 <li>Log in your container</li>
-<li>Execute containerSetup.sh inside the container</li>
+<li>Execute /home/root/containerSetup.sh. <b>NOTE</b>: You need to copy and paste the commands to a terminal</li>
 </ol> 

@@ -42,13 +42,17 @@ RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes \
 	sshpass
 
 	
-# Set the locale
+# Set environment
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
-	
-	
+ENV SCIDB_VER 14.3
+ENV PATH $PATH:/opt/scidb/$SCIDB_VER/bin:/opt/scidb/$SCIDB_VER/share/scidb
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/opt/scidb/$SCIDB_VER/lib:/opt/scidb/$SCIDB_VER/3rdparty/boost/lib
+RUN env
+
+
 # Configure users
 ENV SCIDB_VER 14.3
 ENV PATH $PATH:/opt/scidb/$SCIDB_VER/bin:/opt/scidb/$SCIDB_VER/share/scidb
@@ -59,6 +63,8 @@ RUN groupmod -g 1004 scidb
 RUN echo 'root:xxxx.xxxx.xxxx' | chpasswd
 RUN echo 'postgres:xxxx.xxxx.xxxx' | chpasswd
 RUN echo 'scidb:xxxx.xxxx.xxxx' | chpasswd
+RUN echo 'xxxx.xxxx.xxxx'  >> /home/scidb/pass.txt
+RUN chown scidb:scidb /home/scidb/pass.txt
 RUN mkdir /home/scidb/data
 RUN chown scidb:scidb /home/scidb/data
 RUN echo 'export SCIDB_VER=14.3' >> /home/scidb/.profile
@@ -70,8 +76,6 @@ RUN echo 'cd /tmp && sudo -u postgres /opt/scidb/14.3/bin/scidb.py init_syscat s
 RUN echo 'scidb.py initall scidb_docker' >> /home/scidb/bin/scidb_init.sh
 RUN echo 'scidb.py startall scidb_docker' >> /home/scidb/bin/scidb_init.sh
 RUN chmod 777 /home/scidb/bin/scidb_init.sh
-RUN echo 'xxxx.xxxx.xxxx'  >> /home/scidb/pass.txt
-RUN chown scidb:scidb /home/scidb/pass.txt
 
 
 # install SCIDB & R
@@ -105,6 +109,13 @@ RUN echo 'host  all all 255.255.0.0/16   md5' >> /etc/postgresql/8.4/main/pg_hba
 RUN sed -i 's/5432/49902/g' /etc/postgresql/8.4/main/postgresql.conf
 
 
+# Configure SciDB
+ADD config.ini /opt/scidb/14.3/etc/config.ini
+ADD containerSetup.sh /home/root/containerSetup.sh
+RUN chown root:root /opt/scidb/14.3/etc/config.ini
+RUN chown root:root  /home/root/containerSetup.sh
+
+
 # Restarting services
 RUN stop ssh
 RUN start ssh
@@ -112,20 +123,9 @@ RUN /etc/init.d/postgresql restart
 RUN /etc/init.d/shimsvc qqstart
 
 
-# Configure SciDB
-ADD config.ini /opt/scidb/14.3/etc/config.ini
-RUN chown root:root /opt/scidb/14.3/etc/config.ini
-
 EXPOSE 49901
 EXPOSE 49903
 EXPOSE 49904
 
-#EXPOSE 49902
-#EXPOSE 49910
-#EXPOSE 49911
-#EXPOSE 49912
-#EXPOSE 49913
-#EXPOSE 49914
-#EXPOSE 49915
 
 CMD    ["/usr/sbin/sshd", "-D"]
