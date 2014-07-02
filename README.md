@@ -14,11 +14,7 @@ Files:
 Instructions:
 
 <ol>
-<li>Clone the project, e.g:</li>
-	<ol>
-	<li><xmp><![CDATA[git clone https://github.com/albhasan/docker_scidb.git]]></xmp></li>
-	<li><xmp>cd /home/myuser/gitProjects/docker_scidb</xmp></li>
-	</ol> 
+<li>Clone the project and CD to the docker_scidb folder</li>
 <li>Modify scripts to fit your needs</li>
 	<ol>
 		<li><b>NOTE</b>: setup.sh removes the stopped containers and the unused images, ALL OF THEM!</li>
@@ -28,7 +24,7 @@ Instructions:
 <li>Execute /home/root/containerSetup.sh. <b>NOTE</b>: You need to copy & paste the commands to a terminal</li>
 </ol> 
 
-NOTES:
+<b>NOTES</b>:<br/>
 Changing SciDB setup requires modifying config.ini. For example, changing single instance default configuration for one with 7 instances would require changing the lines:
 
 <ul>
