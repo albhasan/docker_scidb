@@ -112,8 +112,11 @@ RUN sed -i 's/5432/49902/g' /etc/postgresql/8.4/main/postgresql.conf
 # Configure SciDB
 ADD config.ini /opt/scidb/14.3/etc/config.ini
 ADD containerSetup.sh /home/root/containerSetup.sh
+ADD iquery.conf /home/root/.config/scidb/iquery.conf
+ADD iquery.conf /home/scidb/.config/scidb/iquery.conf
 RUN chown root:root /opt/scidb/14.3/etc/config.ini
-RUN chown root:root  /home/root/containerSetup.sh
+RUN chown root:root /home/root/.config/scidb/iquery.conf
+RUN chown scidb:scidb /home/scidb/.config/scidb/iquery.conf
 
 
 # Restarting services

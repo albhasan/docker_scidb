@@ -22,9 +22,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/scidb/$SCIDB_VER/lib:/opt/scidb/$SC
 yes | scidb.py initall scidb_docker
 scidb.py startall scidb_docker
 scidb.py status scidb_docker
-iquery -p 49910 -naq "store(build(<num:double>[x=0:4,1,0, y=0:6,1,0], random()),TEST_ARRAY)"
-iquery -p 49910 -aq "list('arrays')"
-iquery -p 49910 -aq "scan(TEST_ARRAY)"
+iquery -naq "store(build(<num:double>[x=0:4,1,0, y=0:6,1,0], random()),TEST_ARRAY)"
+iquery -aq "list('arrays')"
+iquery -aq "scan(TEST_ARRAY)"
 R
 install.packages('scidb', quiet = TRUE)
 yes
