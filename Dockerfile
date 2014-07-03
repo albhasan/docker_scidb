@@ -2,7 +2,7 @@
 #
 # VERSION 1.0
 #
-# TODO: Install P4/shim
+#
 #
 #
 #
@@ -54,9 +54,6 @@ RUN env
 
 
 # Configure users
-ENV SCIDB_VER 14.3
-ENV PATH $PATH:/opt/scidb/$SCIDB_VER/bin:/opt/scidb/$SCIDB_VER/share/scidb
-ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/opt/scidb/$SCIDB_VER/lib:/opt/scidb/$SCIDB_VER/3rdparty/boost/lib
 RUN useradd --home /home/scidb --create-home --uid 1005 --group sudo --shell /bin/bash scidb
 RUN usermod -u 1004 -U scidb
 RUN groupmod -g 1004 scidb
