@@ -20,7 +20,7 @@ Instructions:
 	<ol>
 	<li>The Dockerfile sets up the passwords for root, postgres and scidb users</li>
 	</ol> 
-<li>Enable setup.sh for execution (chmod +x setup.sh) and run it: This will create a new image from the Dockerfile. <b>WARNING</b>: This will delete all the stopped containers and unused images.
+<li>Enable setup.sh for execution (chmod +x setup.sh) and run it: This will create a new image from the Dockerfile. <b>WARNING: This will delete all the stopped containers and unused images</b>.
 <li>Start a container. For example: docker run -d -P --name="scidb1" -p 49901:49901 -p 49903:49903 -p 49904:49904 --expose=49902 --expose=49910 -v /var/bliss/scidb/test:/home/scidb/data scidb_img</li>
 <li>Log into the container using: ssh -p 49901 root@localhost</li>
 <li>Execute /home/root/containerSetup.sh. <b>NOTE</b>: You need to copy & paste the commands to a terminal</li>
