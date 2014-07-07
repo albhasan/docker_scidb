@@ -18,11 +18,12 @@ Instructions:
 <li>Clone the project and CD to the docker_scidb folder</li>
 <li>Modify the scripts to fit your needs</li>
 	<ol>
-	<li><b>NOTE</b>: setup.sh removes the stopped containers and the unused images, ALL OF THEM!</li>
 	<li>setup.sh mounts the host's folder /var/bliss/scidb/test in to the container as /home/scidb/data.</li>
 	<li>The Dockerfile sets up the passwords for root, postgres and scidb users</li>
 	</ol> 
-<li>Enable setup.sh for execution (chmod +x setup.sh) and run it. This script tries to SSH the new container, if it fails, use ssh -p 49901 root@localhost</li>
+<li>Enable setup.sh for execution (chmod +x setup.sh) and run it: This will create a new image from the Dockerfile. <b>WARNING</b>: This will delete all the stopped containers and unused images.
+<li>Start a container. For example: docker run -d -P --name="scidb1" -p 49901:49901 -p 49903:49903 -p 49904:49904 --expose=49902 --expose=49910 -v /var/bliss/scidb/test:/home/scidb/data scidb_img</li>
+<li>Log into the container using: ssh -p 49901 root@localhost</li>
 <li>Execute /home/root/containerSetup.sh. <b>NOTE</b>: You need to copy & paste the commands to a terminal</li>
 </ol> 
 
