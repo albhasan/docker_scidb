@@ -7,7 +7,7 @@ Files:
 <ul>
 <li>Dockerfile - Docker file for building a Docker Image</li>
 <li>config.ini - SciDB's configuration file</li>
-<li>setup.sh - It removes existing containers and images. Then, it creates a Docker image called "scidb_img" and starts a container (scidb1). Finally, it tries to SSH the container</li>
+<li>setup.sh - It removes existing containers and images. Then, it creates a Docker image called "scidb_img".</li>
 <li>containerSetup.sh - It creates a container "scidb1" from "scidb_img"</li>
 <li>iquery.conf - IQUERY configuration file</li>
 </ul> 
