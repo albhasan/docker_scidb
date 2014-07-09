@@ -55,8 +55,10 @@ RUN env
 
 # Configure users
 RUN useradd --home /home/scidb --create-home --uid 1005 --group sudo --shell /bin/bash scidb
-RUN usermod -u 1004 -U scidb
-RUN groupmod -g 1004 scidb
+RUN usermod -u 1005 -U scidb
+RUN groupmod -g 1006 scidb
+RUN usermod -u 109 -U postgres
+RUN groupmod -g 117 postgres
 RUN echo 'root:xxxx.xxxx.xxxx' | chpasswd
 RUN echo 'postgres:xxxx.xxxx.xxxx' | chpasswd
 RUN echo 'scidb:xxxx.xxxx.xxxx' | chpasswd
