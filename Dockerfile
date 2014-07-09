@@ -80,8 +80,11 @@ RUN apt-get -qq update && apt-get install -y --force-yes \
 # Install SHIM
 RUN wget http://paradigm4.github.io/shim/shim_14.3-2_amd64.deb
 RUN yes | gdebi -q shim_14.3-2_amd64.deb
-RUN echo 'ports=49903,49904s' >> /var/lib/shim/conf
-RUN echo 'scidbport=49910' >> /var/lib/shim/conf
+#RUN echo 'ports=49903,49904s' >> /var/lib/shim/conf
+#RUN echo 'scidbport=49910' >> /var/lib/shim/conf
+RUN rm /var/lib/shim/conf
+ADD conf /var/lib/shim/conf
+RUN chown root:root /var/lib/shim/conf
 RUN rm shim_14.3-2_amd64.deb
 
 
@@ -107,10 +110,11 @@ ADD .pam_environment /home/scidb/.pam_environment
 RUN chown root:root /opt/scidb/14.3/etc/config.ini
 RUN chown root:root /home/root/.config/scidb/iquery.conf
 RUN chown scidb:scidb /home/scidb/.config/scidb/iquery.conf
-RUN chmod +x startScidb.sh stopScidb.sh
+RUN chmod +x /home/scidb/startScidb.sh /home/scidb/stopScidb.sh
 RUN chown scidb:scidb /home/scidb/startScidb.sh
 RUN chown scidb:scidb /home/scidb/stopScidb.sh
 RUN chown scidb:scidb /home/scidb/.pam_environment
+
 
 # Restarting services
 RUN stop ssh
