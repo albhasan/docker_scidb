@@ -4,6 +4,10 @@ export SCIDB_VER=14.3
 export PATH=$PATH:/opt/scidb/$SCIDB_VER/bin:/opt/scidb/$SCIDB_VER/share/scidb
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/scidb/$SCIDB_VER/lib:/opt/scidb/$SCIDB_VER/3rdparty/boost/lib
 /etc/init.d/shimsvc start
+OLD_SCIDB_ID=$(id -u scidb)
+usermod -u 1004 -U scidb
+groupmod -g 1004 scidb
+find / -uid $OLD_SCIDB_ID -exec chown scidb {} \;
 sudo su scidb
 cd ~
 yes | ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
@@ -38,3 +42,4 @@ quit()
 no
 exit
 exit
+

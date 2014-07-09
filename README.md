@@ -28,6 +28,8 @@ Instructions:
 </ol> 
 
 <b>NOTES</b>:<br/>
+When using volumes, match user's ID of a container-user "scidb" to a host-user with the proper writing rights.
+<br/>
 Changing SciDB setup requires modifying <code>config.ini</code> and later a modification on <code>containerSetup.sh</code>. For example, changing single instance default configuration for one with 7 instances would require changing the lines on <code>containerSetup.sh</code>:
 
 <ul>
