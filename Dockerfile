@@ -62,15 +62,7 @@ RUN echo 'xxxx.xxxx.xxxx'  >> /home/scidb/pass.txt
 RUN chown scidb:scidb /home/scidb/pass.txt
 RUN mkdir /home/scidb/data
 RUN chown scidb:scidb /home/scidb/data
-#RUN echo 'export SCIDB_VER=14.3' >> /home/scidb/.profile
-#RUN echo 'export PATH="$PATH:/opt/scidb/$SCIDB_VER/bin:/opt/scidb/$SCIDB_VER/share/scidb"' >> /home/scidb/.profile
-#RUN echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/scidb/$SCIDB_VER/lib:/opt/scidb/$SCIDB_VER/3rdparty/boost/lib"' >> /home/scidb/.profile
 RUN mkdir /home/scidb/bin
-#RUN echo '#!/bin/bash' >> /home/scidb/bin/scidb_init.sh
-#RUN echo 'cd /tmp && sudo -u postgres /opt/scidb/14.3/bin/scidb.py init_syscat scidb_docker' >> /home/scidb/bin/scidb_init.sh
-#RUN echo 'scidb.py initall scidb_docker' >> /home/scidb/bin/scidb_init.sh
-#RUN echo 'scidb.py startall scidb_docker' >> /home/scidb/bin/scidb_init.sh
-#RUN chmod 777 /home/scidb/bin/scidb_init.sh
 
 
 # install SCIDB & R
@@ -109,10 +101,16 @@ ADD config.ini /opt/scidb/14.3/etc/config.ini
 ADD containerSetup.sh /home/root/containerSetup.sh
 ADD iquery.conf /home/root/.config/scidb/iquery.conf
 ADD iquery.conf /home/scidb/.config/scidb/iquery.conf
+ADD startScidb.sh /home/scidb/startScidb.sh
+ADD stopScidb.sh /home/scidb/stopScidb.sh
+ADD .pam_environment /home/scidb/.pam_environment
 RUN chown root:root /opt/scidb/14.3/etc/config.ini
 RUN chown root:root /home/root/.config/scidb/iquery.conf
 RUN chown scidb:scidb /home/scidb/.config/scidb/iquery.conf
-
+RUN chmod +x startScidb.sh stopScidb.sh
+RUN chown scidb:scidb /home/scidb/startScidb.sh
+RUN chown scidb:scidb /home/scidb/stopScidb.sh
+RUN chown scidb:scidb /home/scidb/.pam_environment
 
 # Restarting services
 RUN stop ssh
