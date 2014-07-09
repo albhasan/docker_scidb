@@ -4,10 +4,16 @@ export SCIDB_VER=14.3
 export PATH=$PATH:/opt/scidb/$SCIDB_VER/bin:/opt/scidb/$SCIDB_VER/share/scidb
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/scidb/$SCIDB_VER/lib:/opt/scidb/$SCIDB_VER/3rdparty/boost/lib
 /etc/init.d/shimsvc start
+##################################################
+#UPDATE CONTAINER-USER ID TO MATCH HOST-USER ID
+##################################################
 OLD_SCIDB_ID=$(id -u scidb)
 usermod -u 1004 -U scidb
 groupmod -g 1004 scidb
 find / -uid $OLD_SCIDB_ID -exec chown scidb {} \;
+##################################################
+#PASSWORDLESS SSH SETUP
+##################################################
 sudo su scidb
 cd ~
 yes | ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
@@ -18,6 +24,9 @@ rm /home/scidb/pass.txt
 exit
 /etc/init.d/postgresql restart
 cd /tmp && sudo -u postgres /opt/scidb/14.3/bin/scidb.py init_syscat scidb_docker
+##################################################
+#START SCIDB
+##################################################
 sudo su scidb
 cd ~
 export SCIDB_VER=14.3
@@ -46,6 +55,9 @@ scidblist()
 iquery("scan(TEST_ARRAY)",return=TRUE)
 quit()
 no
+##################################################
+#LOG OUT
+##################################################
 exit
 exit
 
