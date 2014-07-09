@@ -31,7 +31,7 @@ Instructions:
 When using volumes, match user's ID of a container-user "scidb" to a host-user with the proper writing rights.
 <br/>
 Changing SciDB setup requires modifying <code>config.ini</code> and later a modification on <code>containerSetup.sh</code>. For example, changing single instance default configuration for one with 7 instances would require changing the lines on <code>containerSetup.sh</code>:
-
+<br/>
 <ul>
 <li><code>yes | scidb.py initall scidb_docker</code></li>
 <li><code>scidb.py startall scidb_docker</code></li>
