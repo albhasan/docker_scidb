@@ -32,9 +32,8 @@ cd ~
 export SCIDB_VER=14.3
 export PATH=$PATH:/opt/scidb/$SCIDB_VER/bin:/opt/scidb/$SCIDB_VER/share/scidb
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/scidb/$SCIDB_VER/lib:/opt/scidb/$SCIDB_VER/3rdparty/boost/lib
-yes | scidb.py initall scidb_docker
-scidb.py startall scidb_docker
-scidb.py status scidb_docker
+/home/scidb/./startScidb.sh
+sed -i 's/yes/#yes/g' /home/scidb/startScidb.sh
 ##################################################
 #INSTALLATION TEST USING IQUERY
 ##################################################
