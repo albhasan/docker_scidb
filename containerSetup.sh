@@ -9,8 +9,8 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/scidb/$SCIDB_VER/lib:/opt/scidb/$SC
 ##################################################
 export NEW_SCIDB_UID=1004
 export NEW_SCIDB_GID=1004
-#export NEW_POSTGRES_UID=109
-#export NEW_POSTGRES_GID=117
+#export NEW_POSTGRES_UID=1003
+#export NEW_POSTGRES_GID=1003
 OLD_SCIDB_UID=$(id -u scidb)
 OLD_SCIDB_GID=$(id -g scidb)
 #OLD_POSTGRES_UID=$(id -u postgres)
@@ -35,12 +35,12 @@ sshpass -f pass.txt ssh-copy-id "scidb@localhost -p 49901"
 yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "scidb@0.0.0.0 -p 49901"
 yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "scidb@127.0.0.1 -p 49901"
 rm /home/scidb/pass.txt
-exit
-/etc/init.d/postgresql restart
-cd /tmp && sudo -u postgres /opt/scidb/14.3/bin/scidb.py init_syscat scidb_docker
 ##################################################
 #START SCIDB
 ##################################################
+exit
+/etc/init.d/postgresql restart
+cd /tmp && sudo -u postgres /opt/scidb/14.3/bin/scidb.py init_syscat scidb_docker
 sudo su scidb
 cd ~
 export SCIDB_VER=14.3
