@@ -26,6 +26,14 @@ find / -gid $OLD_SCIDB_GID -exec chgrp -h $NEW_SCIDB_GID {} +
 #find / -gid $OLD_POSTGRES_GID -exec chgrp -h $NEW_POSTGRES_GID {} +
 #/etc/init.d/postgresql start
 ##################################################
+#MOVE POSTGRES FILES 
+##################################################
+/etc/init.d/postgresql stop
+cp -aR /var/lib/postgresql/8.4/main /home/scidb/catalog/main
+rm -rf /var/lib/postgresql/8.4/main
+ln -s /home/scidb/catalog/main /var/lib/postgresql/8.4/main
+/etc/init.d/postgresql start
+##################################################
 #PASSWORDLESS SSH SETUP
 ##################################################
 sudo su scidb

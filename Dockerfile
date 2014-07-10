@@ -61,7 +61,9 @@ RUN echo 'scidb:xxxx.xxxx.xxxx' | chpasswd
 RUN echo 'xxxx.xxxx.xxxx'  >> /home/scidb/pass.txt
 RUN chown scidb:scidb /home/scidb/pass.txt
 RUN mkdir /home/scidb/data
+RUN mkdir /home/scidb/catalog
 RUN chown scidb:scidb /home/scidb/data
+RUN chown scidb:scidb /home/scidb/catalog
 
 
 # install SCIDB & R
