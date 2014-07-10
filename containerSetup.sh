@@ -7,10 +7,24 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/scidb/$SCIDB_VER/lib:/opt/scidb/$SC
 ##################################################
 #UPDATE CONTAINER-USER ID TO MATCH HOST-USER ID
 ##################################################
-OLD_SCIDB_ID=$(id -u scidb)
-usermod -u 1004 -U scidb
-groupmod -g 1004 scidb
-find / -uid $OLD_SCIDB_ID -exec chown scidb {} \;
+#export NEW_SCIDB_UID=1005
+#export NEW_SCIDB_GID=1006
+#export NEW_POSTGRES_UID=109
+#export NEW_POSTGRES_GID=117
+#OLD_SCIDB_UID=$(id -u scidb)
+#OLD_SCIDB_GID=$(id -g scidb)
+#OLD_POSTGRES_UID=$(id -u postgres)
+#OLD_POSTGRES_GID=$(id -g postgres)
+#/etc/init.d/postgresql stop
+#usermod -u $NEW_SCIDB_UID -U scidb
+#groupmod -g $NEW_SCIDB_GID scidb
+#find / -uid $OLD_SCIDB_UID -exec chown -h $NEW_SCIDB_UID {} +
+#find / -gid $OLD_SCIDB_GID -exec chgrp -h $NEW_SCIDB_GID {} +
+#usermod -u $NEW_POSTGRES_UID -U postgres
+#groupmod -g $NEW_POSTGRES_GID postgres
+#find / -uid $OLD_POSTGRES_UID -exec chown -h $NEW_POSTGRES_UID {} +
+#find / -gid $OLD_POSTGRES_GID -exec chgrp -h $NEW_POSTGRES_GID {} +
+#/etc/init.d/postgresql start
 ##################################################
 #PASSWORDLESS SSH SETUP
 ##################################################
