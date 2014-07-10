@@ -5,26 +5,32 @@ Scripts for building a <a href="http://www.docker.com/">Docker</a> image of the 
 
 Files:
 <ul>
-<li><code>Dockerfile</code> - Docker file for building a Docker Image</li>
-<li><code>config.ini</code> - SciDB's configuration file</li>
-<li><code>setup.sh</code> - It removes existing containers and images. Then, it creates a Docker image called "scidb_img".</li>
-<li><code>containerSetup.sh</code> - It set ups SciDB inside a container and creates some test data.</li>
+<li><code>.pam_environment</code> - Environmental variables file.</li>
+<li><code>Dockerfile</code> - Docker file for building a Docker Image.</li>
+<li><code>LICENSE</code> - License file.</li>
+<li><code>README.md</code> - This file.</li>
+<li><code>conf</code> - SHIM configuration file.</li>
+<li><code>config.ini</code> - SciDB's configuration file.</li>
+<li><code>containerSetup.sh</code> - Commands for setting up SciDB inside a container. It also creates some test data.</li>
 <li><code>iquery.conf</code> - IQUERY configuration file.</li>
-</ul> 
+<li><code>setup.sh</code> - Host script for removing existing containers and images from host machine. Then, it creates a Docker image called "scidb_img".</li>
+<li><code>startScidb.sh</code> - Simple script for starting SciDB.</li>
+<li><code>stopScidb.sh</code> - Simple script for stopping SciDB.</li>
+</ul>
 
 Instructions:
 
 <ol>
 <li>Clone the project and CD to the docker_scidb folder: <code>git clone https://github.com/albhasan/docker_scidb.git</code></li>
 <li>Modify the scripts to fit your needs</li>
-	<ol>
+	<ul>
 	<li><code>Dockerfile</code> sets up the passwords for root, postgres and scidb users</li>
-	<li><code>config.ini</code> sets up the user and password for scidb on postgres</li>
-	</ol> 
+	<li><code>config.ini</code> sets up the user and password for scidb user on postgres</li>
+	</ul> 
 <li>Enable <code>setup.sh</code> for execution (<code>chmod +x setup.sh</code>) and run it (<code>./setup.sh</code>): This will create a new image from the Dockerfile. <b>WARNING: This will delete all the stopped containers and unused images</b>.
 <li>Start a container. For example, this command starts the container "scidb1" and it maps the host's folder "test" to the container's folder "data": <code>docker run -d -P --name="scidb1" -p 49901:49901 -p 49903:49903 -p 49904:49904 --expose=49902 --expose=49910 -v /var/bliss/scidb/test:/home/scidb/data scidb_img</code></li>
 <li>Log into the container: <code>ssh -p 49901 root@localhost</code></li>
-<li>Execute <code>/home/root/containerSetup.sh</code>. <b>NOTE</b>: You need to copy & paste the commands to a terminal</li>
+<li>Execute the commands in <code>/home/root/containerSetup.sh</code>. <b>NOTE</b>: You need to copy & paste the commands to a terminal</li>
 </ol> 
 
 <b>NOTES</b>:<br/>
