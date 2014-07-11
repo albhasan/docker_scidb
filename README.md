@@ -18,6 +18,11 @@ Files:
 <li><code>stopScidb.sh</code> - Simple script for stopping SciDB.</li>
 </ul>
 
+Prerequisites:
+<ul>
+<li><a href="http://www.docker.com/">Docker</a></li>
+</ul>
+
 Instructions:
 
 <ol>
@@ -29,7 +34,7 @@ Instructions:
 	</ul> 
 </li>
 <li>Enable <code>setup.sh</code> for execution (<code>chmod +x setup.sh</code>) and run it (<code>./setup.sh</code>): This creates a new image from the Dockerfile. <b>WARNING: This will delete all the stopped containers and unused images</b>.
-<li>Start a container. For example, these examples creates a container called "scidb1" from the "scidb_img" image:
+<li>Start a container. For example, these examples create a container called "scidb1" from the "scidb_img" image:
 	<ul>
 	<li>Keep all the data in the container: <code>docker run -d -P --name="scidb1" -p 49901:49901 -p 49903:49903 -p 49904:49904 --expose=49902 --expose=49910 scidb_img</code></li>
 	<li>Keep SciDB's data on a host's folder: <code>docker run -d -P --name="scidb1" -p 49901:49901 -p 49903:49903 -p 49904:49904 --expose=49902 --expose=49910 -v /var/bliss/scidb/test/data:/home/scidb/data scidb_img</code></li>
@@ -40,12 +45,19 @@ Instructions:
 <li>Execute the commands in <code>/home/root/containerSetup.sh</code>. <b>NOTE</b>: You need to copy & paste the commands to a terminal</li>
 </ol> 
 
-<b>NOTES</b>:<br/>
+<b>NOTES</b>:
+<br/>
+<br/>
+<code>containerSetup.sh</code> despite the extension, this file is not meant to be ran as a bash script.
+<br/>
+<br/>
+<code>containerSetup.sh</code> includes instructions on moving postgres files to a different folder. Mounting a volume on that folder enable storage of catalog data in the host.
+<br/>
+<br/>
 When using volumes, match user's ID of a container-user "scidb" to a host-user with the proper writing rights.
 <br/>
 <br/>
 Changing SciDB setup requires the addition of a new configuration to <code>config.ini</code> and later a modification on <code>startScidb.sh</code>. For example, changing single instance default configuration for one with 7 instances would require changing the lines on <code>startScidb.sh</code>:
-<br/>
 <ul>
 <li><code>scidb.py initall scidb_docker</code></li>
 <li><code>scidb.py startall scidb_docker</code></li>
