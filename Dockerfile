@@ -11,7 +11,6 @@
 #SERVICE		DEFAULT		MAPPED
 #ssh 			22			49901
 #Postgresql 	5432		49902
-#shim			8080		49903
 #shim			8083s		49904
 #SciDB			1239		49910
 
@@ -123,7 +122,6 @@ RUN /etc/init.d/shimsvc qqstart
 
 
 EXPOSE 49901
-EXPOSE 49903
 EXPOSE 49904
 
 

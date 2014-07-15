@@ -71,7 +71,7 @@ yes
 yes
 34
 library(scidb)
-scidbconnect("localhost", 49903)
+scidbconnect("localhost", 49904, "scidb", "xxxx.xxxx.xxxx")
 scidblist()
 iquery("scan(TEST_ARRAY)",return=TRUE)
 quit()
