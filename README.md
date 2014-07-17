@@ -14,8 +14,9 @@ Files:
 <li><code>containerSetup.sh</code> - Commands for setting up SciDB inside a container. It also creates some test data.</li>
 <li><code>iquery.conf</code> - IQUERY configuration file.</li>
 <li><code>setup.sh</code> - Host script for removing old containers and images from host machine. Then, it creates a Docker image called "scidb_img".</li>
-<li><code>startScidb.sh</code> - Simple script for starting SciDB.</li>
-<li><code>stopScidb.sh</code> - Simple script for stopping SciDB.</li>
+<li><code>startScidb.sh</code> - Container script for starting SciDB.</li>
+<li><code>stopScidb.sh</code> - Container script for stopping SciDB.</li>
+<li><code>updatePortsPass.sh</code> - Host script for changing other scripts's configuration (ports, passwords, SciDB configuration)</li>
 </ul>
 
 Prerequisites:
