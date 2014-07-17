@@ -13,7 +13,7 @@ Files:
 <li><code>config.ini</code> - SciDB's configuration file.</li>
 <li><code>containerSetup.sh</code> - Commands for setting up SciDB inside a container. It also creates some test data.</li>
 <li><code>iquery.conf</code> - IQUERY configuration file.</li>
-<li><code>setup.sh</code> - Host script for removing existing containers and images from host machine. Then, it creates a Docker image called "scidb_img".</li>
+<li><code>setup.sh</code> - Host script for removing old containers and images from host machine. Then, it creates a Docker image called "scidb_img".</li>
 <li><code>startScidb.sh</code> - Simple script for starting SciDB.</li>
 <li><code>stopScidb.sh</code> - Simple script for stopping SciDB.</li>
 </ul>
@@ -33,7 +33,7 @@ Instructions:
 	<li><code>config.ini</code> sets up the user and password for scidb user on postgres.</li>
 	</ul> 
 </li>
-<li>Enable <code>setup.sh</code> for execution (<code>chmod +x setup.sh</code>) and run it (<code>./setup.sh</code>): This creates a new image from the Dockerfile. <b>WARNING: This will delete all the stopped containers and unused images</b>.
+<li>Enable <code>setup.sh</code> for execution (<code>chmod +x setup.sh</code>) and run it (<code>./setup.sh</code>): This creates a new image from the Dockerfile. </li>
 <li>Start a container. For example, these examples create a container called "scidb1" from the "scidb_img" image:
 	<ul>
 	<li>Keep all the data in the container: <code>docker run -d -P --name="scidb1" -p 49901:49901 -p 49903:49903 -p 49904:49904 --expose=49902 --expose=49910 scidb_img</code></li>

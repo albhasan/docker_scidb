@@ -1,7 +1,7 @@
 #!/bin/bash
 docker stop scidb1
-docker ps -a  | grep -v "Up"  | grep -v "STATUS" | awk '{ print $1 }' | xargs docker rm
-docker images  | grep -v "TAG"  | grep "<none>" | awk '{print $3}' | xargs docker rmi
+docker rm scidb1
+docker rmi scidb_img
 docker build --rm=true --tag="scidb_img" .
 
 #docker run -d --name="scidb1" -p 49901:49901 -p 49904:49904 --expose=49902 --expose=49910 scidb_img
