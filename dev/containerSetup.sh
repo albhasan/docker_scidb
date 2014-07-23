@@ -24,4 +24,10 @@ yes | /home/scidb/dev_dir/scidbtrunk/./run.py setup
 export LC_ALL="en_US.UTF-8"
 yes | /home/scidb/dev_dir/scidbtrunk/./run.py install
 /home/scidb/dev_dir/scidbtrunk/./run.py start
+/home/scidb/dev_dir/scidbtrunk/stage/install/bin/./iquery
+set lang afl;
+list('types');
+exit;
 /home/scidb/dev_dir/scidbtrunk/./run.py stop
+exit
+exit
