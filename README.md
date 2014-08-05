@@ -70,3 +70,15 @@ For these:
 <li><code>scidb.py startall scidb_docker_bigdata</code></li>
 <li><code>scidb.py status scidb_docker_bigdata</code></li>
 </ul>
+
+
+Compile SciDB in a container
+============================
+
+<ul>
+<li>Go to the <code>dev</code> folder</li>
+<li>Enable <code>setup.sh</code> for execution (<code>chmod +x setup.sh</code>) and run it (<code>./setup.sh</code>): This creates a new image from the Dockerfile in the <code>dev</code> folder. </li>
+<li>Start a container <code>docker run -d --name="scidb_dev1" -p 49901:22  --expose=22 --expose=1239 --expose=5432 scidb_dev_img</code></li>
+<li>Log in the container <code>ssh -p 49901 root@localhost</code></li>
+<li>Execute the commands in <code>containerSetup.sh</code>. <b>NOTE</b>: You need to copy & paste the commands to the terminal</li>
+</ul>
