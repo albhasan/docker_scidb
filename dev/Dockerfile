@@ -1,4 +1,4 @@
-# COMPILE SciDB 14.3
+# COMPILE SciDB 14.8
 #
 # VERSION 1.0
 #
@@ -65,9 +65,9 @@ RUN chown scidb:scidb /home/scidb/data
 # setup
 RUN mkdir /home/scidb/dev_dir
 RUN cd /home/scidb/dev_dir
-RUN wget -q -P /home/scidb/dev_dir https://dl.dropboxusercontent.com/u/25989010/scidbResources/scidb-14.3.0.7383.tgz
-RUN tar -xzf /home/scidb/dev_dir/scidb-14.3.0.7383.tgz -C /home/scidb/dev_dir
-RUN mv /home/scidb/dev_dir/scidb-14.3.0.7383 /home/scidb/dev_dir/scidbtrunk
+RUN wget -q -P /home/scidb/dev_dir https://dl.dropboxusercontent.com/u/25989010/scidbResources/scidb-14.8.0.7978.tgz
+RUN tar -xzf /home/scidb/dev_dir/scidb-14.8.0.7978.tgz -C /home/scidb/dev_dir
+RUN mv /home/scidb/dev_dir/scidb-14.8.0.7978 /home/scidb/dev_dir/scidbtrunk
 RUN chown -R scidb:scidb /home/scidb/dev_dir
 
 	
@@ -79,7 +79,13 @@ RUN echo 'StrictHostKeyChecking no' >> /etc/ssh/ssh_config
 # Configure Postgres
 RUN echo 'host all all 255.255.0.0/16 md5' >> /etc/postgresql/8.4/main/pg_hba.conf
 
-	
+
+#Add compilation script
+ADD containerSetup.sh /containerSetup.sh
+RUN chown root:root  /containerSetup.sh
+RUN chmod +x /containerSetup.sh
+
+
 # Restarting services
 RUN stop ssh
 RUN start ssh

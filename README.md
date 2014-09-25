@@ -116,10 +116,11 @@ Compile SciDB in a container
 ============================
 
 <ul>
-<li>Go to the <code>dev</code> folder</li>
-<li>Enable <code>setup.sh</code> for execution (<code>chmod +x setup.sh</code>) and run it (<code>./setup.sh</code>): This creates a new image from the Dockerfile in the <code>dev</code> folder. </li>
-<li>Start a container <code>docker run -d --name="scidb_dev1" -p 49901:22  --expose=22 --expose=1239 --expose=5432 scidb_dev_img</code></li>
-<li>Log in the container <code>ssh -p 49901 root@localhost</code></li>
-<li>Execute the commands in <code>containerSetup.sh</code>. <b>NOTE</b>: You need to copy & paste the commands to the terminal</li>
+	<li>Clone the project and CD to the docker_scidb folder: <code>git clone https://github.com/albhasan/docker_scidb.git</code></li>
+	<li>Go to the <code>dev</code> folder</li>
+	<li>Enable <code>setup.sh</code> for execution (<code>chmod +x setup.sh</code>) and run it (<code>./setup.sh</code>): This creates a new image from the Dockerfile in the <code>dev</code> folder. </li>
+	<li>Start a container <code>docker run -d --name="scidb_dev1" -p 49901:22  --expose=22 --expose=1239 --expose=5432 scidb_dev_img</code></li>
+	<li>Log in the container <code>ssh -p 49901 root@localhost</code>. The password is <em>xxxx.xxxx.xxxx</em> for all the users.</li>
+	<li>Execute the script <code>/./containerSetup.sh</code>.</li>
 </ul>
 
