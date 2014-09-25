@@ -2,7 +2,10 @@
 export LC_ALL="en_US.UTF-8"
 echo "##################################################"
 echo "SET UP OF SCIDB 14 ON A DOCKER CONTAINER"
+# ./containerSetup.sh scidb_docker_2a.ini
 echo "##################################################"
+
+SCIDB_CONF_FILE=$1  # scidb_docker_2a.ini
 
 #********************************************************
 echo "***** Update container-user ID to match host-user ID..."
@@ -34,7 +37,6 @@ yes | ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
 sshpass -f /home/scidb/pass.txt ssh-copy-id "root@localhost -p 49901"
 yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "root@0.0.0.0 -p 49901"
 yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "root@127.0.0.1 -p 49901"
-rm /home/scidb/pass.txt
 #********************************************************
 echo "***** Installing SciDB..."
 #********************************************************
@@ -42,7 +44,7 @@ cd ~
 wget https://github.com/Paradigm4/deployment/archive/14.8.zip
 unzip 14.8.zip
 cd /root/deployment-14.8/cluster_install
-yes | ./cluster_install -s /home/scidb/scidb_docker_2a.ini
+yes | ./cluster_install -s /home/scidb/$SCIDB_CONF_FILE
 #********************************************************
 echo "***** Installing SHIM..."
 #********************************************************
@@ -68,8 +70,6 @@ echo "***** ***** Starting SciDB..."
 #********************************************************
 yes | scidb.py initall scidb_docker
 /home/scidb/./startScidb.sh
-#scidb.py startall scidb_docker
-#scidb.py status scidb_docker
 #********************************************************
 echo "***** ***** Testing installation using IQuery..."
 #********************************************************
@@ -81,11 +81,13 @@ echo "***** ***** Testing installation using R..."
 #********************************************************
 R --vanilla
 library(scidb)
-scidbconnect("localhost", 49902, "scidb", "xxxx.xxxx.xxxx")
+pwd = as.character(unlist(read.table("/home/scidb/pass.txt", sep="\t")))
+scidbconnect("localhost", 49902, "scidb", pwd)
 scidblist()
 iquery("scan(TEST_ARRAY)",return=TRUE)
 quit()
 no
+rm /home/scidb/pass.txt
 EOF
 #********************************************************
 echo "***** SciDB setup finished sucessfully!"

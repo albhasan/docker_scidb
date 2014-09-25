@@ -3,73 +3,113 @@ Docker SciDB
 
 Scripts for building a <a href="http://www.docker.com/">Docker</a> image of the array database <a href="http://www.scidb.org/">SciDB</a> 
 
-Files:
+<h3>Files:</h3>
 <ul>
-<li><code>.pam_environment</code> - User's environmental variable file.</li>
-<li><code>Dockerfile</code> - Docker file for building a Docker Image.</li>
-<li><code>LICENSE</code> - License file.</li>
-<li><code>README.md</code> - This file.</li>
-<li><code>conf</code> - SHIM configuration file.</li>
-<li><code>config.ini</code> - SciDB's configuration file.</li>
-<li><code>containerSetup.sh</code> - Commands for setting up SciDB inside a container. It also creates some test data.</li>
-<li><code>iquery.conf</code> - IQUERY configuration file.</li>
-<li><code>setup.sh</code> - Host script for removing old containers and images from host machine. Then, it creates a Docker image called "scidb_img".</li>
-<li><code>startScidb.sh</code> - Container script for starting SciDB.</li>
-<li><code>stopScidb.sh</code> - Container script for stopping SciDB.</li>
-<li><code>updatePortsPass.sh</code> - Host script for changing other scripts's configuration (ports, passwords, SciDB configuration)</li>
+	<li><code>LICENSE</code> - License file.</li>
+	<li><code>README.md</code> - This file.</li>
+	<li><code>conf</code> - SHIM configuration file.</li>
+	<li>Docker files:
+		<ul>
+			<li><code>Dockerfile</code> - Docker file for building a Docker Image.</li>		
+			<li><code>setup.sh</code> - Host script for removing old containers and images from host machine. Then, it creates a Docker image called "scidb_img".</li>
+		</ul>
+	</li>
+	<li>Container files:
+		<ul>
+			<li><code>containerSetup.sh</code> - Script for setting up SciDB on a container. It also creates some test data.</li>		
+			<li><code>iquery.conf</code> - IQUERY configuration file.</li>
+			<li><code>startScidb.sh</code> - Container script for starting SciDB.</li>
+			<li><code>stopScidb.sh</code> - Container script for stopping SciDB.</li>
+			<li><code>scidb_docker_XX.ini</code> - SciDB's configuration files (see table below).</li>
+		</ul>
+	</li>
+	<li><code>updatePortsPass.sh</code> - Host script for changing other scripts's configuration (ports, passwords, SciDB configuration)</li>
 </ul>
 
-Prerequisites:
+
+<h3>Prerequisites:</h3>
 <ul>
-<li><a href="http://www.docker.com/">Docker</a></li>
+	<li>Internet access.</li>
+	<li><a href="http://www.docker.com/">Docker</a>.</li>
 </ul>
 
-Instructions:
 
+<h3>Instructions:</h3>
 <ol>
-<li>Clone the project and CD to the docker_scidb folder: <code>git clone https://github.com/albhasan/docker_scidb.git</code></li>
-<li>Modify the scripts to fit your needs:
-	<ul>
-	<li><code>Dockerfile</code> sets up the passwords for root, postgres and scidb users.</li>
-	<li><code>config.ini</code> sets up the user and password for scidb user on postgres.</li>
-	</ul> 
-</li>
-<li>Enable <code>setup.sh</code> for execution (<code>chmod +x setup.sh</code>) and run it (<code>./setup.sh</code>): This creates a new image from the Dockerfile. </li>
-<li>Start a container. For example, these examples create a container called "scidb1" from the "scidb_img" image:
-	<ul>
-	<li>Keep all the data in the container: <code>docker run -d -P --name="scidb1" -p 49901:49901 -p 49903:49903 -p 49904:49904 --expose=49902 --expose=49910 scidb_img</code></li>
-	<li>Keep SciDB's data on a host's folder: <code>docker run -d -P --name="scidb1" -p 49901:49901 -p 49903:49903 -p 49904:49904 --expose=49902 --expose=49910 -v /var/bliss/scidb/test/data:/home/scidb/data scidb_img</code></li>
-	<li>Keep SciDB's data and catalog (postgres) data on host's folders: <code>docker run -d -P --name="scidb1" -p 49901:49901 -p 49903:49903 -p 49904:49904 --expose=49902 --expose=49910 -v /var/bliss/scidb/test/data:/home/scidb/data -v /var/bliss/scidb/test/catalog:/home/scidb/catalog scidb_img</code></li>
-	</ul>
-</li>
-<li>Log into the container: <code>ssh -p 49901 root@localhost</code></li>
-<li>Execute the commands in <code>/home/root/containerSetup.sh</code>. <b>NOTE</b>: You need to copy & paste the commands to a terminal</li>
+	<li>Clone the project and CD to the docker_scidb folder: <code>git clone https://github.com/albhasan/docker_scidb.git</code></li>
+	<li>Enable <code>setup.sh</code> for execution (<code>chmod +x setup.sh</code>) and run it (<code>./setup.sh</code>): This creates a new image from the Dockerfile.</li>
+	<li>Start a container. These examples create a container called "scidb1" from the "scidb_img" image:
+		<ul>
+		<li>Keep all the data in the container:   <code>docker run -d --name="scidb1" -p 49901:49901 -p 49902:49902 --expose=49903 --expose=49904 scidb_img</code></li>
+		<li>Keep SciDB's data on a host's folder: <code>docker run -d --name="scidb1" -p 49901:49901 -p 49902:49902 --expose=49903 --expose=49904 -v /var/bliss/scidb/test/data:/home/scidb/data scidb_img</code></li>
+		<li>Keep SciDB's data and catalog (postgres) data on host's folders: <code>docker run -d --name="scidb1" -p 49901:49901 -p 49902:49902 --expose=49903 --expose=49904 -v /var/bliss/scidb/test/data:/home/scidb/data -v /var/bliss/scidb/test/catalog:/home/scidb/catalog scidb_img</code></li>
+		</ul>
+	</li>
+	<li>Select a configuration file that suits your needs and your hardware, for example <code>scidb_docker_2a</code> (see table below).</li>	
+	<li>Log into the container: <code>ssh -p 49901 root@localhost</code>. The default password is <em>xxxx.xxxx.xxxx</em></li>
+	<li>Execute the script using the SciDB configuration file of your preference <code>/home/root/./containerSetup.sh scidb_docker_2a.ini</code></li>
 </ol> 
 
-<b>NOTES</b>:
-<br/>
-<br/>
-<code>containerSetup.sh</code> despite the extension, this file is not meant to be ran as a bash script.
-<br/>
-<br/>
-<code>containerSetup.sh</code> includes instructions on moving postgres files to a different folder. Mounting a volume on that folder enable storage of catalog data in the host.
-<br/>
-<br/>
-When using volumes, match user's ID of a container-user "scidb" to a host-user with the proper writing rights.
-<br/>
-<br/>
-Changing SciDB setup requires the addition of a new configuration to <code>config.ini</code> and later a modification on <code>startScidb.sh</code>. For example, changing single instance default configuration for one with 7 instances would require changing the lines on <code>startScidb.sh</code>:
+
+<h5>NOTES</h5>:
 <ul>
-<li><code>scidb.py initall scidb_docker</code></li>
-<li><code>scidb.py startall scidb_docker</code></li>
-<li><code>scidb.py status scidb_docker</code></li>
+	<li><code>containerSetup.sh</code> includes instructions on moving postgres files to a different folder. Mounting a volume on that folder enable storage of catalog data in the host.</li>
+	<li>When using volumes, match user's ID of a container-user "scidb" to a host-user with the proper writing rights.</li>
 </ul>
-For these:
-<ul>
-<li><code>scidb.py initall scidb_docker_bigdata</code></li>
-<li><code>scidb.py startall scidb_docker_bigdata</code></li>
-<li><code>scidb.py status scidb_docker_bigdata</code></li>
-</ul>
+
+
+<h5>SciDB setup files:</h5>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Instances per server<br></th>
+    <th>Max concurrent connections<br></th>
+    <th>CPU cores per server<br></th>
+    <th>GB per server<br></th>
+  </tr>
+  <tr>
+    <td>scidb_docker_1</td>
+    <td>1<br></td>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>scidb_docker_2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>4</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>scidb_docker_2a</td>
+    <td>2</td>
+    <td>2</td>
+    <td>4</td>
+    <td>8</td>
+  </tr>
+  <tr>
+    <td>scidb_docker_2b</td>
+    <td>2</td>
+    <td>2</td>
+    <td>4</td>
+    <td>16</td>
+  </tr>
+  <tr>
+    <td>scidb_docker_4</td>
+    <td>4</td>
+    <td>4</td>
+    <td>4</td>
+    <td>16</td>
+  </tr>
+  <tr>
+    <td>scidb_docker_8</td>
+    <td>8</td>
+    <td>16</td>
+    <td>24</td>
+    <td>160</td>
+  </tr>
+</table>
 
 
 Compile SciDB in a container
@@ -82,3 +122,4 @@ Compile SciDB in a container
 <li>Log in the container <code>ssh -p 49901 root@localhost</code></li>
 <li>Execute the commands in <code>containerSetup.sh</code>. <b>NOTE</b>: You need to copy & paste the commands to the terminal</li>
 </ul>
+

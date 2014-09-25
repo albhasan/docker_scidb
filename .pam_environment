@@ -1,4 +1,0 @@
-SCIDB_VER=14.3
-PATH DEFAULT=${PATH}:/opt/scidb/${SCIDB_VER}/bin:/opt/scidb/${SCIDB_VER}/share/scidb:/home/opt/scidb/${SCIDB_VER}/lib/
-LD_LIBRARY_PATH DEFAULT=${LD_LIBRARY_PATH}:/opt/scidb/${SCIDB_VER}/lib:/usr/lib/:/opt/scidb/${SCIDB_VER}/3rdparty/boost/lib
-
