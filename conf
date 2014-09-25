@@ -1,6 +1,6 @@
 auth=login
-ports=49904s
-scidbport=49910
+ports=49902s
+scidbport=49904
 user=root
 tmp=/tmp
 
