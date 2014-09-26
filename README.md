@@ -51,9 +51,9 @@ Scripts for building a <a href="http://www.docker.com/">Docker</a> image of the 
 </ol> 
 
 
-<h5>NOTES</h5>:
+<h5>NOTES:</h5>
 <ul>
-	<li><code>containerSetup.sh</code> includes instructions on moving postgres files to a different folder. Mounting a volume on that folder enable storage of catalog data in the host.</li>
+	<li><code>containerSetup.sh</code> includes commands for moving postgres' files to a different folder. Mounting a volume on that folder enables storage of catalog data in the host.</li>
 	<li>When using volumes, match user's ID of a container-user "scidb" to a host-user with the proper writing rights.</li>
 </ul>
 
