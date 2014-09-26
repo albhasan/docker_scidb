@@ -68,42 +68,42 @@ Scripts for building a <a href="http://www.docker.com/">Docker</a> image of the 
     <th>GB per server<br></th>
   </tr>
   <tr>
-    <td>scidb_docker_1</td>
+    <td>scidb_docker_1.ini</td>
     <td>1<br></td>
     <td>2</td>
     <td>2</td>
     <td>2</td>
   </tr>
   <tr>
-    <td>scidb_docker_2</td>
+    <td>scidb_docker_2.ini</td>
     <td>2</td>
     <td>2</td>
     <td>4</td>
     <td>4</td>
   </tr>
   <tr>
-    <td>scidb_docker_2a</td>
+    <td>scidb_docker_2a.ini</td>
     <td>2</td>
     <td>2</td>
     <td>4</td>
     <td>8</td>
   </tr>
   <tr>
-    <td>scidb_docker_2b</td>
+    <td>scidb_docker_2b.ini</td>
     <td>2</td>
     <td>2</td>
     <td>4</td>
     <td>16</td>
   </tr>
   <tr>
-    <td>scidb_docker_4</td>
+    <td>scidb_docker_4.ini</td>
     <td>4</td>
     <td>4</td>
     <td>4</td>
     <td>16</td>
   </tr>
   <tr>
-    <td>scidb_docker_8</td>
+    <td>scidb_docker_8.ini</td>
     <td>8</td>
     <td>16</td>
     <td>24</td>
