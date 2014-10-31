@@ -173,6 +173,7 @@ Once finished compiling SciDB, it is possible to compile r_exec:
 	<li><code>/home/scidb/dev_dir/scidbtrunk/./run.py start</code></li>
 	</ul>
 </li>
+<li>
 	<ul>
 	<li>Load the plugin:
 	<li><code>iquery</code></li>
