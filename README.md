@@ -124,3 +124,60 @@ Compile SciDB in a container
 	<li>Execute the script <code>/./containerSetup.sh</code>.</li>
 </ul>
 
+
+
+<h3>Compile r_exec:</h3>
+
+Once finished compiling SciDB, it is possible to compile r_exec:
+
+<ul>
+
+<li>Install additional sofware (as root):
+	<ul>
+	<li><code>apt-get install r-base</code></li>
+	<li><code>R</code></li>
+	<li><code>install.packages('Rserve')</code></li>
+	<li><code>40</code></li>
+	<li><code>quit()</code></li>
+	<li><code>no</code></li>
+	</ul>
+</li>
+<li>Copy required files:
+	<ul>
+	<li><code>cp -r /home/scidb/dev_dir/scidbtrunk/stage/install/include/* /usr/include/</code></li>
+	<li><code>mkdir /usr/include/boost</code></li>
+	<li><code>cp -r /opt/scidb/14.8/3rdparty/boost/include/boost/* /usr/include/boost</code></li>
+	</ul>
+</li>
+</li>Download and compile r_exec:
+	<ul>
+	<li><code>cd ~</code></li>
+	<li><code>git clone https://github.com/Paradigm4/r_exec.git</code></li>
+	<li><code>cd ~/r_exec</code></li>
+
+	<li><code>export SCIDB=/home/scidb/dev_dir/scidbtrunk/stage/install</code></li>
+	<li><code>make SCIDB=/home/scidb/dev_dir/scidbtrunk/stage/install</code></li>
+	<li><code>make install</code></li>
+	<li><code>cp *.so /home/scidb/dev_dir/scidbtrunk/stage/install/lib/scidb/plugins</code></li>
+	</ul>
+</li>
+<li>Restart SciDB (as SciDB user):
+	<ul>
+	<li><code>su scidb</code></li>
+	<li><code>cd ~</code></li>
+	<li><code>export LC_ALL="en_US.UTF-8"</code></li>
+	<li><code>export SCIDB_VER=14.8</code></li>
+	<li><code>export SCIDB_INSTALL_PATH=/home/scidb/dev_dir/scidbtrunk/stage/install</code></li>
+	<li><code>export PATH=$SCIDB_INSTALL_PATH/bin:$PATH</code></li>
+	<li><code>/home/scidb/dev_dir/scidbtrunk/./run.py stop</code></li>
+	<li><code>/home/scidb/dev_dir/scidbtrunk/./run.py start</code></li>
+	</ul>
+</li>
+	<ul>
+	<li>Load the plugin:
+	<li><code>iquery</code></li>
+	<li><code>set lang afl;</code></li>
+	<li><code>load_library('r_exec');</code></li>
+	</ul>
+</li>
+</ul>
