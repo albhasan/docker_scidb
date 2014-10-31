@@ -149,7 +149,7 @@ Once finished compiling SciDB, it is possible to compile r_exec:
 	<li><code>cp -r /opt/scidb/14.8/3rdparty/boost/include/boost/* /usr/include/boost</code></li>
 	</ul>
 </li>
-</li>Download and compile r_exec:
+<li>Download and compile r_exec:
 	<ul>
 	<li><code>cd ~</code></li>
 	<li><code>git clone https://github.com/Paradigm4/r_exec.git</code></li>
