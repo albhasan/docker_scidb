@@ -132,14 +132,15 @@ Once finished compiling SciDB, it is possible to compile r_exec:
 
 <ul>
 
-<li>Install additional sofware (as root):
+<li>Install and run Rserve (as root):
 	<ul>
-	<li><code>apt-get install r-base</code></li>
+	<li><code>yes | apt-get install r-base</code></li>
 	<li><code>R</code></li>
 	<li><code>install.packages('Rserve')</code></li>
 	<li><code>40</code></li>
 	<li><code>quit()</code></li>
 	<li><code>no</code></li>
+        <li><code>R CMD Rserve</code></li>
 	</ul>
 </li>
 <li>Copy required files:
@@ -157,7 +158,6 @@ Once finished compiling SciDB, it is possible to compile r_exec:
 
 	<li><code>export SCIDB=/home/scidb/dev_dir/scidbtrunk/stage/install</code></li>
 	<li><code>make SCIDB=/home/scidb/dev_dir/scidbtrunk/stage/install</code></li>
-	<li><code>make install</code></li>
 	<li><code>cp *.so /home/scidb/dev_dir/scidbtrunk/stage/install/lib/scidb/plugins</code></li>
 	</ul>
 </li>
@@ -173,11 +173,12 @@ Once finished compiling SciDB, it is possible to compile r_exec:
 	<li><code>/home/scidb/dev_dir/scidbtrunk/./run.py start</code></li>
 	</ul>
 </li>
-<li>Load the plugin:
+<li>Load the plugin and run a test:
 	<ul>
 	<li><code>iquery</code></li>
 	<li><code>set lang afl;</code></li>
 	<li><code>load_library('r_exec');</code></li>
+        <li><code>r_exec(build(<z:double>[i=1:100,10,0],0),'expr=x<-runif(1000);y<-runif(1000);list(sum(x^2+y^2<1)/250)');</code></li>
 	</ul>
 </li>
 </ul>
