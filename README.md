@@ -178,7 +178,7 @@ Once finished compiling SciDB, it is possible to compile r_exec:
 	<li><code>iquery</code></li>
 	<li><code>set lang afl;</code></li>
 	<li><code>load_library('r_exec');</code></li>
-        <li><code><textarea>r_exec(build(<z:double>[i=1:100,10,0],0),'expr=x<-runif(1000);y<-runif(1000);list(sum(x^2+y^2<1)/250)');</textarea></code></li>
+        <li><code><xmp>r_exec(build(<z:double>[i=1:100,10,0],0),'expr=x<-runif(1000);y<-runif(1000);list(sum(x^2+y^2<1)/250)');</xmp></code></li>
 	</ul>
 </li>
 </ul>
