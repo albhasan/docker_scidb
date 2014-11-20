@@ -41,7 +41,8 @@ RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes \
 	sshpass \ 
 	libxml2-dev \ 
 	libgeos-dev \ 
-	git-core
+	git-core \
+	apt-transport-https
 
 
 # Set environment
