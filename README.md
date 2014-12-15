@@ -121,7 +121,7 @@ Compile SciDB in a container
 	<li>Enable <code>setup.sh</code> for execution (<code>chmod +x setup.sh</code>) and run it (<code>./setup.sh</code>): This creates a new image from the Dockerfile in the <code>dev</code> folder. </li>
 	<li>Start a container <code>docker run -d --name="scidb_dev1" -p 49901:22  --expose=22 --expose=1239 --expose=5432 scidb_dev_img</code></li>
 	<li>Log in the container <code>ssh -p 49901 root@localhost</code>. The password is <em>xxxx.xxxx.xxxx</em> for all the users.</li>
-	<li>Execute the script <code>/./containerSetup.sh</code>.</li>
+	<li>Execute the script <code>/./containerSetup.sh scidb_docker_2a.ini</code>.</li>
 </ul>
 
 
