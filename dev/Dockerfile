@@ -36,13 +36,15 @@ RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes \
 	dialog \
 	curl \
 	libcurl3-dev \
-	sshpass \ 
-	subversion \ 
-	expect \ 
-	git \ 
-	ssh
+	sshpass \
+	subversion \
+	expect \
+	git \
+	ssh \ 
+	apt-transport-https
 
-	
+
+
 # Set environment
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -66,9 +68,9 @@ RUN chown scidb:scidb /home/scidb/data
 # setup
 RUN mkdir /home/scidb/dev_dir
 RUN cd /home/scidb/dev_dir
-RUN wget -q -P /home/scidb/dev_dir https://dl.dropboxusercontent.com/u/25989010/scidbResources/scidb-14.8.0.7978.tgz
-RUN tar -xzf /home/scidb/dev_dir/scidb-14.8.0.7978.tgz -C /home/scidb/dev_dir
-RUN mv /home/scidb/dev_dir/scidb-14.8.0.7978 /home/scidb/dev_dir/scidbtrunk
+RUN wget -q -P /home/scidb/dev_dir https://dl.dropboxusercontent.com/u/25989010/scidbResources/scidb-14.8.0.8628.tgz
+RUN tar -xzf /home/scidb/dev_dir/scidb-14.8.0.8628.tgz -C /home/scidb/dev_dir
+RUN mv /home/scidb/dev_dir/scidb-14.8.0.8628 /home/scidb/dev_dir/scidbtrunk
 RUN chown -R scidb:scidb /home/scidb/dev_dir
 
 	
