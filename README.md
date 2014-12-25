@@ -184,6 +184,6 @@ Once finished compiling SciDB, it is possible to compile r_exec:
 </ul>
 
 
-<h3>geosdb</h3>
-A wrapper for using Boost geometry library functions from inside SciDB. Follow this <a href="http://github.com/albhasan/geosdb">link</a>.
+<h3>Compile geosdb</h3>
+A wrapper for using Boost::geometry from inside SciDB. Follow this <a href="http://github.com/albhasan/geosdb">link</a>.
 
