@@ -19,6 +19,8 @@ FROM ubuntu:12.04
 MAINTAINER Alber Sanchez
 
 
+RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu precise/" >> /etc/apt/sources.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 # install
 RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes \
 	openssh-server \
@@ -42,7 +44,10 @@ RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes \
 	libxml2-dev \ 
 	libgeos-dev \ 
 	git-core \
-	apt-transport-https
+	apt-transport-https \
+	r-base \ 
+	r-base-dev \ 
+	r-cran-spatial
 
 
 # Set environment
@@ -64,16 +69,6 @@ RUN echo 'xxxx.xxxx.xxxx'  >> /home/scidb/pass.txt
 RUN mkdir /var/run/sshd
 RUN mkdir /home/scidb/data
 RUN mkdir /home/scidb/catalog
-
-
-# install SCIDB & R
-RUN echo "deb http://cran.r-project.org/bin/linux/ubuntu precise/" >> /etc/apt/sources.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-#RUN apt-get -qq update && apt-get install -y --force-yes \
-#	r-base \ 
-#	r-cran-spatial
-RUN apt-get install -y r-base
-RUN apt-get install -y r-cran-spatial
 
 
 # Configure SSH
