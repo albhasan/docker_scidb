@@ -69,9 +69,11 @@ RUN mkdir /home/scidb/catalog
 # install SCIDB & R
 RUN echo "deb http://cran.r-project.org/bin/linux/ubuntu precise/" >> /etc/apt/sources.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-RUN apt-get -qq update && apt-get install -y --force-yes \
-	r-base \ 
-	r-cran-spatial
+#RUN apt-get -qq update && apt-get install -y --force-yes \
+#	r-base \ 
+#	r-cran-spatial
+RUN apt-get install -y r-base
+RUN apt-get install -y r-cran-spatial
 
 
 # Configure SSH
