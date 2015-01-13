@@ -40,15 +40,18 @@ yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "root@127.0.0.1 -p 49901"
 #********************************************************
 echo "***** Installing SciDB..."
 #********************************************************
-cd ~ 
-wget https://github.com/Paradigm4/deployment/archive/master.zip
-unzip master.zip
-cd /root/deployment-master/cluster_install
+cd ~
+#wget https://github.com/Paradigm4/deployment/archive/master.zip
+#unzip master.zip
+#cd /root/deployment-master/cluster_install
+wget https://github.com/Paradigm4/deployment/archive/14.8.tar.gz
+tar xzf 14.8.tar.gz
+cd /root/deployment-14.8/cluster_install
 yes | ./cluster_install -s /home/scidb/$SCIDB_CONF_FILE
 #********************************************************
 echo "***** Installing SHIM..."
 #********************************************************
-cd ~ 
+cd ~
 wget http://paradigm4.github.io/shim/shim_14.8_amd64.deb
 yes | gdebi -q shim_14.8_amd64.deb
 rm /var/lib/shim/conf
