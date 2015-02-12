@@ -2,10 +2,9 @@
 export LC_ALL="en_US.UTF-8"
 echo "##################################################"
 echo "SET UP OF SCIDB 14 ON A DOCKER CONTAINER"
-# ./containerSetup.sh scidb_docker_2a.ini
 echo "##################################################"
 
-SCIDB_CONF_FILE=$1  # scidb_docker_2a.ini
+
 
 #********************************************************
 echo "***** Update container-user ID to match host-user ID..."
@@ -27,27 +26,27 @@ rm -rf /var/lib/postgresql/8.4/main
 ln -s /home/scidb/catalog/main /var/lib/postgresql/8.4/main
 /etc/init.d/postgresql start
 #********************************************************
-echo "***** Installing R packages..."
-#********************************************************
-Rscript /home/scidb/installPackages.R packages=scidb verbose=0 quiet=0
-#********************************************************
 echo "***** Setting up passwordless SSH..."
 #********************************************************
 yes | ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
 sshpass -f /home/scidb/pass.txt ssh-copy-id "root@localhost -p 49901"
 yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "root@0.0.0.0 -p 49901"
 yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "root@127.0.0.1 -p 49901"
+su scidb <<'EOF'
+cd ~
+yes | ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
+sshpass -f /home/scidb/pass.txt ssh-copy-id "scidb@localhost -p 49901"
+yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "scidb@0.0.0.0 -p 49901"
+yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "scidb@127.0.0.1 -p 49901"
+EOF
 #********************************************************
 echo "***** Installing SciDB..."
 #********************************************************
 cd ~
-#wget https://github.com/Paradigm4/deployment/archive/master.zip
-#unzip master.zip
-#cd /root/deployment-master/cluster_install
 wget https://github.com/Paradigm4/deployment/archive/14.8.tar.gz
 tar xzf 14.8.tar.gz
 cd /root/deployment-14.8/cluster_install
-yes | ./cluster_install -s /home/scidb/$SCIDB_CONF_FILE
+yes | ./cluster_install -s /home/scidb/scidb_docker.ini
 #********************************************************
 echo "***** Installing SHIM..."
 #********************************************************
@@ -62,7 +61,7 @@ rm shim_14.8_amd64.deb
 #----------------
 #sudo su scidb
 su scidb <<'EOF'
-cd ~ 
+cd ~
 #****************************************************************************************
 sed -i 's/1239/49904/g' ~/.bashrc
 #****************************************************************************************
@@ -78,17 +77,6 @@ echo "***** ***** Testing installation using IQuery..."
 iquery -naq "store(build(<num:double>[x=0:4,1,0, y=0:6,1,0], random()),TEST_ARRAY)"
 iquery -aq "list('arrays')"
 iquery -aq "scan(TEST_ARRAY)"
-#********************************************************
-echo "***** ***** Testing installation using R..."
-#********************************************************
-R --vanilla
-library(scidb)
-pwd = as.character(unlist(read.table("/home/scidb/pass.txt", sep="\t")))
-scidbconnect("localhost", 49902, "scidb", pwd)
-scidblist()
-iquery("scan(TEST_ARRAY)",return=TRUE)
-quit()
-no
 rm /home/scidb/pass.txt
 EOF
 #----------------

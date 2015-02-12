@@ -19,35 +19,18 @@ FROM ubuntu:12.04
 MAINTAINER Alber Sanchez
 
 
-RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu precise/" >> /etc/apt/sources.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+
 # install
-RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes \
+RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes --allow-unauthenticated \
 	openssh-server \
 	sudo \
 	wget \
 	gdebi \
-	gcc \
-	libc-dev-bin \
-	libc6-dev \
-	libgomp1 \
-	libssl-dev \
-	linux-libc-dev \  
-	zlib1g-dev  \  
 	nano \  
-	gedit \  
 	postgresql-8.4 \ 
-	dialog \ 
-	curl \ 
-	libcurl3-dev \ 
 	sshpass \ 
-	libxml2-dev \ 
-	libgeos-dev \ 
-	git-core \
-	apt-transport-https \
-	r-base \ 
-	r-base-dev \ 
-	r-cran-spatial
+	git-core \ 
+	apt-transport-https
 
 
 # Set environment
@@ -83,17 +66,12 @@ RUN sed -i 's/5432/49903/g' /etc/postgresql/8.4/main/postgresql.conf
 
 # Add files
 ADD containerSetup.sh 	/home/root/containerSetup.sh
-ADD conf 				/home/root/conf
-ADD iquery.conf 		/home/scidb/.config/scidb/iquery.conf
+ADD conf 		/home/root/conf
+ADD iquery.conf 	/home/scidb/.config/scidb/iquery.conf
 ADD installPackages.R	/home/scidb/installPackages.R
-ADD startScidb.sh		/home/scidb/startScidb.sh
-ADD stopScidb.sh		/home/scidb/stopScidb.sh
-ADD scidb_docker_1.ini	/home/scidb/scidb_docker_1.ini
-ADD scidb_docker_2a.ini	/home/scidb/scidb_docker_2a.ini
-ADD scidb_docker_2b.ini	/home/scidb/scidb_docker_2b.ini
-ADD scidb_docker_2.ini	/home/scidb/scidb_docker_2.ini
-ADD scidb_docker_4.ini	/home/scidb/scidb_docker_4.ini
-ADD scidb_docker_8.ini	/home/scidb/scidb_docker_8.ini
+ADD startScidb.sh	/home/scidb/startScidb.sh
+ADD stopScidb.sh	/home/scidb/stopScidb.sh
+ADD scidb_docker.ini	/home/scidb/scidb_docker.ini
 
 
 RUN chown root:root \ 
@@ -108,12 +86,7 @@ RUN chown scidb:scidb \
 	/home/scidb/catalog \ 
 	/home/scidb/startScidb.sh \ 
 	/home/scidb/stopScidb.sh \ 
-	/home/scidb/scidb_docker_1.ini \ 
-	/home/scidb/scidb_docker_2a.ini \ 
-	/home/scidb/scidb_docker_2b.ini	\ 
-	/home/scidb/scidb_docker_2.ini \ 
-	/home/scidb/scidb_docker_4.ini \ 
-	/home/scidb/scidb_docker_8.ini \ 
+	/home/scidb/scidb_docker.ini \ 
 	/home/scidb/installPackages.R
 
 
