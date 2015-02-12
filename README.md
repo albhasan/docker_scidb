@@ -20,10 +20,9 @@ Scripts for building a <a href="http://www.docker.com/">Docker</a> image of the 
 			<li><code>iquery.conf</code> - IQUERY configuration file.</li>
 			<li><code>startScidb.sh</code> - Container script for starting SciDB.</li>
 			<li><code>stopScidb.sh</code> - Container script for stopping SciDB.</li>
-			<li><code>scidb_docker_XX.ini</code> - SciDB's configuration files (see table below).</li>
+			<li><code>scidb_docker.ini</code> - SciDB's configuration file.</li>
 		</ul>
 	</li>
-	<li><code>updatePortsPass.sh</code> - Host script for changing other scripts's configuration (ports, passwords, SciDB configuration)</li>
 </ul>
 
 
@@ -38,78 +37,18 @@ Scripts for building a <a href="http://www.docker.com/">Docker</a> image of the 
 <ol>
 	<li>Clone the project and CD to the docker_scidb folder: <code>git clone https://github.com/albhasan/docker_scidb.git</code></li>
 	<li>Enable <code>setup.sh</code> for execution (<code>chmod +x setup.sh</code>) and run it (<code>./setup.sh</code>): This creates a new image from the Dockerfile.</li>
-	<li>Start a container. These examples create a container called "scidb1" from the "scidb_img" image:
-		<ul>
-		<li>Keep all the data in the container:   <code>docker run -d --name="scidb1" -p 49901:49901 -p 49902:49902 --expose=49903 --expose=49904 scidb_img</code></li>
-		<li>Keep SciDB's data on a host's folder: <code>docker run -d --name="scidb1" -p 49901:49901 -p 49902:49902 --expose=49903 --expose=49904 -v /var/bliss/scidb/test/data:/home/scidb/data scidb_img</code></li>
-		<li>Keep SciDB's data and catalog (postgres) data on host's folders: <code>docker run -d --name="scidb1" -p 49901:49901 -p 49902:49902 --expose=49903 --expose=49904 -v /var/bliss/scidb/test/data:/home/scidb/data -v /var/bliss/scidb/test/catalog:/home/scidb/catalog scidb_img</code></li>
-		</ul>
-	</li>
-	<li>Select a configuration file that suits your needs and your hardware, for example <code>scidb_docker_2a</code> (see table below).</li>	
+	<li>Start a container. This examples creates a container called "scidb1" from the "scidb_img" image: <code>docker run -d --name="scidb1" -p 49901:49901 -p 49902:49902 --expose=49903 --expose=49904 scidb_img</code></li>
+	<li>Modify the configuration file <em>scidb_docker.ini</em> according to your needs and your hardware. Here you can find an helper <a href="https://github.com/Paradigm4/configurator">application</a>. <b>NOTE</b>: Do not forget to set the following attributes <em>max-memory-limit=4000</em>, <em>pg-port=49903</em> and <em>ssh-port=49901</em>.</li>	
 	<li>Log into the container: <code>ssh -p 49901 root@localhost</code>. The default password is <em>xxxx.xxxx.xxxx</em></li>
-	<li>Execute the script using the SciDB configuration file of your preference <code>/home/root/./containerSetup.sh scidb_docker_2a.ini</code></li>
+	<li>Execute the script <code>/home/root/./containerSetup.sh</code></li>
 </ol> 
 
 
 <h5>NOTES:</h5>
 <ul>
-	<li><code>containerSetup.sh</code> includes commands for moving postgres' files to a different folder. Mounting a volume on that folder enables storage of catalog data in the host.</li>
+	<li><code>containerSetup.sh</code> includes commands for moving postgres' files to a different folder. Mounting a docker volume on that folder enables storage of catalog data in the host.</li>
 	<li>When using volumes, match user's ID of a container-user "scidb" to a host-user with the proper writing rights.</li>
 </ul>
-
-
-<h5>SciDB setup files:</h5>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Instances per server<br></th>
-    <th>Max concurrent connections<br></th>
-    <th>CPU cores per server<br></th>
-    <th>GB per server<br></th>
-  </tr>
-  <tr>
-    <td>scidb_docker_1.ini</td>
-    <td>1<br></td>
-    <td>2</td>
-    <td>2</td>
-    <td>2</td>
-  </tr>
-  <tr>
-    <td>scidb_docker_2.ini</td>
-    <td>2</td>
-    <td>2</td>
-    <td>4</td>
-    <td>4</td>
-  </tr>
-  <tr>
-    <td>scidb_docker_2a.ini</td>
-    <td>2</td>
-    <td>2</td>
-    <td>4</td>
-    <td>8</td>
-  </tr>
-  <tr>
-    <td>scidb_docker_2b.ini</td>
-    <td>2</td>
-    <td>2</td>
-    <td>4</td>
-    <td>16</td>
-  </tr>
-  <tr>
-    <td>scidb_docker_4.ini</td>
-    <td>4</td>
-    <td>4</td>
-    <td>4</td>
-    <td>16</td>
-  </tr>
-  <tr>
-    <td>scidb_docker_8.ini</td>
-    <td>8</td>
-    <td>16</td>
-    <td>24</td>
-    <td>160</td>
-  </tr>
-</table>
 
 
 Compile SciDB in a container
