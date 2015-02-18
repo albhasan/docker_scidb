@@ -68,9 +68,14 @@ RUN chown scidb:scidb /home/scidb/data
 # setup
 RUN mkdir /home/scidb/dev_dir
 RUN cd /home/scidb/dev_dir
-RUN wget -q -P /home/scidb/dev_dir https://dl.dropboxusercontent.com/u/25989010/scidbResources/scidb-14.8.0.8628.tgz
-RUN tar -xzf /home/scidb/dev_dir/scidb-14.8.0.8628.tgz -C /home/scidb/dev_dir
-RUN mv /home/scidb/dev_dir/scidb-14.8.0.8628 /home/scidb/dev_dir/scidbtrunk
+#RUN wget -q -P /home/scidb/dev_dir https://dl.dropboxusercontent.com/u/25989010/scidbResources/scidb-14.8.0.8628.tgz
+#RUN tar -xzf /home/scidb/dev_dir/scidb-14.8.0.8628.tgz -C /home/scidb/dev_dir
+#RUN mv /home/scidb/dev_dir/scidb-14.8.0.8628 /home/scidb/dev_dir/scidbtrunk
+RUN wget -q -P /home/scidb/dev_dir https://dl.dropboxusercontent.com/u/25989010/scidbResources/scidb-14.12.0.8739.tgz
+RUN tar -xzf /home/scidb/dev_dir/scidb-14.12.0.8739.tgz -C /home/scidb/dev_dir
+RUN mv /home/scidb/dev_dir/scidb-14.12.0.8739 /home/scidb/dev_dir/scidbtrunk
+
+
 RUN chown -R scidb:scidb /home/scidb/dev_dir
 
 	
