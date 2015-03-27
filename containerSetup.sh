@@ -1,7 +1,7 @@
 #!/bin/bash
 export LC_ALL="en_US.UTF-8"
 echo "##################################################"
-echo "SET UP OF SCIDB 14 ON A DOCKER CONTAINER"
+echo "SET UP SCIDB 14 ON A DOCKER CONTAINER"
 echo "##################################################"
 
 
@@ -29,42 +29,39 @@ ln -s /home/scidb/catalog/main /var/lib/postgresql/8.4/main
 echo "***** Setting up passwordless SSH..."
 #********************************************************
 yes | ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
-sshpass -f /home/scidb/pass.txt ssh-copy-id "root@localhost -p 49901"
-yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "root@0.0.0.0 -p 49901"
-yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "root@127.0.0.1 -p 49901"
+sshpass -f /home/scidb/pass.txt ssh-copy-id "root@localhost"
+yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "root@0.0.0.0"
+yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "root@127.0.0.1"
 su scidb <<'EOF'
 cd ~
 yes | ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
-sshpass -f /home/scidb/pass.txt ssh-copy-id "scidb@localhost -p 49901"
-yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "scidb@0.0.0.0 -p 49901"
-yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "scidb@127.0.0.1 -p 49901"
+sshpass -f /home/scidb/pass.txt ssh-copy-id "scidb@localhost"
+yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "scidb@0.0.0.0"
+yes | ssh-copy-id -i ~/.ssh/id_rsa.pub  "scidb@127.0.0.1"
 EOF
 #********************************************************
 echo "***** Installing SciDB..."
 #********************************************************
 cd ~
-wget https://github.com/Paradigm4/deployment/archive/14.8.tar.gz
-tar xzf 14.8.tar.gz
-cd /root/deployment-14.8/cluster_install
+wget https://www.dropbox.com/s/vrry4eggjcs0ky8/deployment-14.12.tar
+tar xf deployment-14.12.tar
+cd /root/deployment/cluster_install
 yes | ./cluster_install -s /home/scidb/scidb_docker.ini
 #********************************************************
 echo "***** Installing SHIM..."
 #********************************************************
 cd ~
-wget http://paradigm4.github.io/shim/shim_14.8_amd64.deb
-yes | gdebi -q shim_14.8_amd64.deb
+wget http://paradigm4.github.io/shim/ubuntu_12.04_shim_14.12_amd64.deb
+yes | gdebi -q ubuntu_12.04_shim_14.12_amd64.deb
 rm /var/lib/shim/conf
 mv /home/root/conf /var/lib/shim/conf
-rm shim_14.8_amd64.deb
+rm ubuntu_12.04_shim_14.12_amd64.deb
 /etc/init.d/shimsvc stop
 /etc/init.d/shimsvc start
 #----------------
 #sudo su scidb
 su scidb <<'EOF'
 cd ~
-#****************************************************************************************
-sed -i 's/1239/49904/g' ~/.bashrc
-#****************************************************************************************
 source ~/.bashrc
 #********************************************************
 echo "***** ***** Starting SciDB..."

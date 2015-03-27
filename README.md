@@ -35,12 +35,11 @@ Scripts for building a <a href="http://www.docker.com/">Docker</a> image of the 
 
 <h3>Instructions:</h3>
 <ol>
-	<li>Clone the project and CD to the docker_scidb folder: <code>git clone https://github.com/albhasan/docker_scidb.git</code></li>
-	<li>Enable <code>setup.sh</code> for execution <code>chmod +x setup.sh</code> and run it <code>./setup.sh</code>. This creates a new image from the Dockerfile.</li>
-	<li>Start a container. This examples creates a container called "scidb1" from the "scidb_img" image: <code>docker run -d --name="scidb1" -p 49901:49901 -p 49902:49902 --expose=49903 --expose=49904 scidb_img</code></li>
-	<li>Modify the configuration file <em>scidb_docker.ini</em> according to your needs and your hardware. Here you can find a helper <a href="https://github.com/Paradigm4/configurator">application</a>. <b>NOTE</b>: Do not forget to set and tune the following attributes <em>max-memory-limit=4000</em>, <em>pg-port=49903</em> and <em>ssh-port=49901</em>.</li>	
+	<li>Clone the project and then go to the docker_scidb folder: <code>git clone https://github.com/albhasan/docker_scidb.git</code></li>
+	<li>Modify the configuration file <em>scidb_docker.ini</em> according to your needs and your hardware. Here you can find a helper <a href="https://github.com/Paradigm4/configurator">application</a>.</li>
+	<li>Enable <code>setup.sh</code> for execution <code>chmod +x setup.sh</code> and run it <code>./setup.sh</code>. This creates a new Docker image from the Dockerfile and then it starts a container. You can also create containers manually using a command like this: <code>docker run -d --name="scidb1" -p 49901:22 -p 49902:8083 --expose=5432 --expose=1239 scidb_img</code></li>
 	<li>Log into the container: <code>ssh -p 49901 root@localhost</code>. The default password is <em>xxxx.xxxx.xxxx</em></li>
-	<li>Execute the script <code>/home/root/./containerSetup.sh</code></li>
+	<li>Execute the script <code>/home/root/./containerSetup.sh</code>. This script set SciDB up and then it runs a small query.</li>
 </ol> 
 
 
