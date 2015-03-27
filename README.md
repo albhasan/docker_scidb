@@ -85,7 +85,7 @@ Once finished compiling SciDB, it is possible to compile r_exec:
 	<ul>
 	<li><code>cp -r /home/scidb/dev_dir/scidbtrunk/stage/install/include/* /usr/include/</code></li>
 	<li><code>mkdir /usr/include/boost</code></li>
-	<li><code>cp -r /opt/scidb/14.8/3rdparty/boost/include/boost/* /usr/include/boost</code></li>
+	<li><code>cp -r /opt/scidb/14.12/3rdparty/boost/include/boost/* /usr/include/boost</code></li>
 	</ul>
 </li>
 <li>Download and compile r_exec:
