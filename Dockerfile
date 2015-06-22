@@ -1,4 +1,4 @@
-# SciDB 14.8
+# SciDB 14.12
 #
 # VERSION 1.0
 #
@@ -64,8 +64,8 @@ RUN echo 'host  all all 255.255.0.0/16   md5' >> /etc/postgresql/8.4/main/pg_hba
 
 
 # Add files
-ADD containerSetup.sh 	/home/root/containerSetup.sh
-ADD conf 		/home/root/conf
+ADD containerSetup.sh 	/root/containerSetup.sh
+ADD conf 		/root/conf
 ADD iquery.conf 	/home/scidb/.config/scidb/iquery.conf
 ADD installPackages.R	/home/scidb/installPackages.R
 ADD startScidb.sh	/home/scidb/startScidb.sh
@@ -73,26 +73,15 @@ ADD stopScidb.sh	/home/scidb/stopScidb.sh
 ADD scidb_docker.ini	/home/scidb/scidb_docker.ini
 
 
-RUN chown root:root \ 
-	/home/root/containerSetup.sh \ 
-	/home/root/conf
+RUN chown -R root:root /root/*
 
-	
-RUN chown scidb:scidb \ 
-	/home/scidb/.config/scidb/iquery.conf \ 
-	/home/scidb/pass.txt \ 
-	/home/scidb/data \ 
-	/home/scidb/catalog \ 
-	/home/scidb/startScidb.sh \ 
-	/home/scidb/stopScidb.sh \ 
-	/home/scidb/scidb_docker.ini \ 
-	/home/scidb/installPackages.R
+
+RUN chown -R scidb:scidb /home/scidb/*
 
 
 RUN chmod +x \ 
-	/home/root/containerSetup.sh \ 
-	/home/scidb/startScidb.sh \ 
-	/home/scidb/stopScidb.sh 
+	/root/*.sh \ 
+	/home/scidb/*.sh 
 
 
 # Restarting services

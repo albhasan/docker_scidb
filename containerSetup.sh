@@ -54,7 +54,7 @@ cd ~
 wget http://paradigm4.github.io/shim/ubuntu_12.04_shim_14.12_amd64.deb
 yes | gdebi -q ubuntu_12.04_shim_14.12_amd64.deb
 rm /var/lib/shim/conf
-mv /home/root/conf /var/lib/shim/conf
+mv /root/conf /var/lib/shim/conf
 rm ubuntu_12.04_shim_14.12_amd64.deb
 /etc/init.d/shimsvc stop
 /etc/init.d/shimsvc start
