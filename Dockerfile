@@ -31,7 +31,9 @@ RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes --allow-u
 	sshpass \ 
 	git-core \ 
 	apt-transport-https \ 
-	net-tools
+	net-tools \ 
+	imagemagick
+
 
 
 # Set environment
@@ -44,15 +46,14 @@ RUN env
 
 # Configure users
 RUN useradd --home /home/scidb --create-home --uid 1005 --group sudo --shell /bin/bash scidb
-RUN echo 'root:xxxx.xxxx.xxxx' | chpasswd
-RUN echo 'postgres:xxxx.xxxx.xxxx' | chpasswd
-RUN echo 'scidb:xxxx.xxxx.xxxx' | chpasswd
-RUN echo 'xxxx.xxxx.xxxx'  >> /home/scidb/pass.txt
+RUN echo 'root:bigdatalab360' | chpasswd
+RUN echo 'postgres:bigdatalab360' | chpasswd
+RUN echo 'scidb:bigdatalab360' | chpasswd
+RUN echo 'bigdatalab360'  >> /home/scidb/pass.txt
 
 
 RUN mkdir /var/run/sshd
 RUN mkdir /home/scidb/data
-RUN mkdir /home/scidb/catalog
 
 
 # Configure SSH
@@ -64,13 +65,22 @@ RUN echo 'host  all all 255.255.0.0/16   md5' >> /etc/postgresql/8.4/main/pg_hba
 
 
 # Add files
-ADD containerSetup.sh 	/root/containerSetup.sh
-ADD conf 		/root/conf
-ADD iquery.conf 	/home/scidb/.config/scidb/iquery.conf
-ADD installPackages.R	/home/scidb/installPackages.R
-ADD startScidb.sh	/home/scidb/startScidb.sh
-ADD stopScidb.sh	/home/scidb/stopScidb.sh
-ADD scidb_docker.ini	/home/scidb/scidb_docker.ini
+ADD containerSetup.sh 		/root/containerSetup.sh
+ADD conf 			/root/conf
+ADD installR.sh			/root/installR.sh
+ADD installParallel.sh		/root/installParallel.sh
+ADD installBoost_1570.sh	/root/installBoost_1570.sh
+ADD installGribModis2SciDB.sh	/root/installGribModis2SciDB.sh
+ADD installGdal_1112.sh		/root/installGdal_1112.sh
+ADD libr_exec.so 		/root/libr_exec.so
+ADD iquery.conf 		/home/scidb/.config/scidb/iquery.conf
+ADD installPackages.R		/home/scidb/installPackages.R
+ADD startScidb.sh		/home/scidb/startScidb.sh
+ADD stopScidb.sh		/home/scidb/stopScidb.sh
+ADD scidb_docker.ini		/home/scidb/scidb_docker.ini
+#ADD downloaddata.sh 		/home/scidb/downloaddata.sh
+ADD createArray.afl 		/home/scidb/createArray.afl
+ADD removeArrayVersions.sh 	/home/scidb/removeArrayVersions.sh
 
 
 RUN chown -R root:root /root/*
