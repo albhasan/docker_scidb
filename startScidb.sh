@@ -3,6 +3,6 @@ echo "********************************************"
 echo "START SCIDB"
 echo "********************************************"
 export LC_ALL="en_US.UTF-8"
-yes | scidb.py initall sdb_doc_twdtw
-scidb.py startall sdb_doc_twdtw
-scidb.py status sdb_doc_twdtw
+#yes | scidb.py initall scidb_docker
+scidb.py startall scidb_docker
+scidb.py status scidb_docker

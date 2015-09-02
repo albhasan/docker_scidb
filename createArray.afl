@@ -1,1 +1,0 @@
-CREATE ARRAY MOD13Q1 <ndvi:int16, evi:int16, quality:uint16, red:int16, nir:int16, blue:int16, mir:int16, viewza:int16, sunza:int16, relaza:int16, cdoy:int16, reli:int8> [col_id=62400:67199,96,0, row_id=52800:57599,96,0, time_id=230:344,1,0];

@@ -4,7 +4,6 @@
 ###########################################################
 repositories <- c("http://cran.us.r-project.org", 
            "http://cran.r-mirror.de/", 
-           "http://www.vps.fmvz.usp.br/CRAN/",
            "http://www.laqee.unal.edu.co/CRAN/", 
            "http://ftp.iitm.ac.in/cran/",
            "http://cran.mirror.ac.za/",
