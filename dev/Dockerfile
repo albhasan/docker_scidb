@@ -1,4 +1,4 @@
-# COMPILE SciDB 14.8
+# COMPILE SciDB 15.7
 #
 # VERSION 1.0
 #
@@ -40,7 +40,7 @@ RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes \
 	subversion \
 	expect \
 	git \
-	ssh \ 
+	ssh \
 	apt-transport-https
 
 
@@ -51,8 +51,8 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 RUN env
-	
-	
+
+
 # Configure users
 RUN useradd --home /home/scidb --create-home --uid 1005 --group sudo --shell /bin/bash scidb
 RUN usermod -u 1004 -U scidb
@@ -64,21 +64,7 @@ RUN echo 'scidb:xxxx.xxxx.xxxx' | chpasswd
 RUN mkdir /home/scidb/data
 RUN chown scidb:scidb /home/scidb/data
 
-	
-# setup
-RUN mkdir /home/scidb/dev_dir
-RUN cd /home/scidb/dev_dir
-#RUN wget -q -P /home/scidb/dev_dir https://dl.dropboxusercontent.com/u/25989010/scidbResources/scidb-14.8.0.8628.tgz
-#RUN tar -xzf /home/scidb/dev_dir/scidb-14.8.0.8628.tgz -C /home/scidb/dev_dir
-#RUN mv /home/scidb/dev_dir/scidb-14.8.0.8628 /home/scidb/dev_dir/scidbtrunk
-RUN wget -q -P /home/scidb/dev_dir https://dl.dropboxusercontent.com/u/25989010/scidbResources/scidb-14.12.0.8739.tgz
-RUN tar -xzf /home/scidb/dev_dir/scidb-14.12.0.8739.tgz -C /home/scidb/dev_dir
-RUN mv /home/scidb/dev_dir/scidb-14.12.0.8739 /home/scidb/dev_dir/scidbtrunk
 
-
-RUN chown -R scidb:scidb /home/scidb/dev_dir
-
-	
 # Configure SSH
 RUN mkdir /var/run/sshd
 RUN echo 'StrictHostKeyChecking no' >> /etc/ssh/ssh_config
@@ -88,10 +74,17 @@ RUN echo 'StrictHostKeyChecking no' >> /etc/ssh/ssh_config
 RUN echo 'host all all 255.255.0.0/16 md5' >> /etc/postgresql/8.4/main/pg_hba.conf
 
 
-#Add compilation script
-ADD containerSetup.sh /containerSetup.sh
-RUN chown root:root  /containerSetup.sh
-RUN chmod +x /containerSetup.sh
+#Add required files
+ADD containerSetup.sh 		/root/containerSetup.sh
+ADD installR.sh 					/root/installR.sh
+ADD scidb_docker.ini 			/home/scidb/scidb_docker.ini
+ADD scidb-15.7.0.9267.tgz /home/scidb/dev_dir
+ADD installPackages.R			/home/scidb/installPackages.R
+
+
+RUN chown -R scidb:scidb /home/scidb/dev_dir
+RUN chown root:root  /root/*.*
+RUN chmod +x /root/*.sh
 
 
 # Restarting services
