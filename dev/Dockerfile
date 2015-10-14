@@ -18,7 +18,7 @@ MAINTAINER Alber Sanchez
 
 
 # install
-RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes \
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get -qq update && apt-get install --fix-missing -y --force-yes \
 	openssh-server \
 	openssh-client \
 	sudo \
