@@ -1,7 +1,7 @@
 Docker SciDB
 ============
 
-Scripts for building a <a href="http://www.docker.com/">Docker</a> image of the array database <a href="http://www.scidb.org/">SciDB</a> 
+Scripts for building a <a href="http://www.docker.com/">Docker</a> image of the array database <a href="http://www.scidb.org/">SciDB 14.12</a>. NOTE: This is not the latest version of SciDB but the last one to offer a binary install. 
 
 <h3>Files:</h3>
 <ul>
@@ -40,7 +40,7 @@ Scripts for building a <a href="http://www.docker.com/">Docker</a> image of the 
 	<li>Enable <code>setup.sh</code> for execution <code>chmod +x setup.sh</code> and run it <code>./setup.sh</code>. This creates a new Docker image from the Dockerfile and then it starts a container. You can also create containers manually using a command like this: <code>docker run -d --name="scidb1" -p 49901:22 -p 49902:8083 --expose=5432 --expose=1239 scidb_img</code></li>
 	<li>Log into the container: <code>ssh -p 49901 root@localhost</code>. The default password is <em>xxxx.xxxx.xxxx</em></li>
 	<li>Execute the script <code>/home/root/./containerSetup.sh</code>. This script set SciDB up and then it runs a small query.</li>
-</ol> 
+</ol>
 
 
 <h5>NOTES:</h5>
@@ -124,4 +124,3 @@ Once finished compiling SciDB, it is possible to compile r_exec:
 
 <h3>Compile geosdb</h3>
 A wrapper for using Boost::geometry from inside SciDB. Follow this <a href="http://github.com/albhasan/geosdb">link</a>.
-
