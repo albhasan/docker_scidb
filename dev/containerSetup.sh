@@ -9,6 +9,14 @@ Rscript /home/scidb/installPackages.R packages=scidb verbose=0 quiet=0
 
 yes | ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
 
+
+
+apt-get -qq update && apt-get install --fix-missing -y --force-yes \
+  apt-utils \
+  libc6-dbg
+
+
+
 #--------------
 #sudo su scidb
 su scidb <<'EOF'
@@ -72,6 +80,7 @@ yes | /home/scidb/dev_dir/scidbtrunk/./run.py setup
 EOF
 #--------------
 cp /home/scidb/scidb_docker.ini /opt/scidb/15.7/etc/config.ini
+/etc/init.d/postgresql start
 #--------------
 #sudo su scidb
 su scidb <<'EOF'
