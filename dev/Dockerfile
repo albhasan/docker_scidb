@@ -1,4 +1,4 @@
-# COMPILE SciDB 15.7
+# COMPILE SciDB 15.12
 #
 # VERSION 1.0
 #
@@ -6,12 +6,10 @@
 #
 #
 #
-#PORT MAPPING
-#SERVICE DEFAULT MAPPED
-#ssh 			22 22
-#Postgresql 	5432 5432
-#SciDB 			1239 1239
-
+#PORTS
+#ssh					22
+#Postgresql		5432
+#SciDB 				1239
 
 FROM ubuntu:12.04
 MAINTAINER Alber Sanchez
@@ -19,30 +17,30 @@ MAINTAINER Alber Sanchez
 
 # install
 RUN apt-get -qq update && apt-get install --fix-missing -y --force-yes \
-	openssh-server \
-	openssh-client \
-	sudo \
-	wget \
+	apt-transport-https \
+	apt-utils \
+	curl \
+	dialog \
+	expect \
 	gcc \
+	git \
 	libc-dev-bin \
+	libc6-dbg \
 	libc6-dev \
+	libcurl3-dev \
 	libgomp1 \
 	libssl-dev \
 	linux-libc-dev \
-	zlib1g-dev \
 	nano \
-	gedit \
+	openssh-server \
+	openssh-client \
 	postgresql-8.4 \
-	dialog \
-	curl \
-	libcurl3-dev \
-	sshpass \
 	subversion \
-	expect \
-	git \
+	sudo \
 	ssh \
-	apt-transport-https
-
+	sshpass \
+	wget \
+	zlib1g-dev
 
 
 # Set environment
@@ -75,11 +73,11 @@ RUN echo 'host all all 255.255.0.0/16 md5' >> /etc/postgresql/8.4/main/pg_hba.co
 
 
 #Add required files
-ADD containerSetup.sh 		/root/containerSetup.sh
-ADD installR.sh 					/root/installR.sh
-ADD scidb_docker.ini 			/home/scidb/scidb_docker.ini
-ADD scidb-15.7.0.9267.tgz /home/scidb/dev_dir
-ADD installPackages.R			/home/scidb/installPackages.R
+ADD containerSetup.sh 						/root/containerSetup.sh
+ADD installR.sh 									/root/installR.sh
+ADD scidb_docker.ini 							/home/scidb/scidb_docker.ini
+ADD scidb-15.12.1.4cadab5.tar.gz	/home/scidb/dev_dir
+ADD installPackages.R							/home/scidb/installPackages.R
 
 
 RUN chown -R scidb:scidb /home/scidb/dev_dir
