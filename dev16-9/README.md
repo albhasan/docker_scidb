@@ -14,7 +14,7 @@ Scripts for building SciDB 16.9 inside a Docker container
 <h5>NOTES:</h5>
 <ul>
 	<li>Despite its name, the instruction file <code>setup.sh</code> contains a set of commands used to compile SciDB and it is NOT meant to be ran as a script</li>
-	<li></li>
+	<li>Unlike 15.12, SciDB 16.9 licence is not AFFERO GNU anymore. You need to download the source code from Paradigm4</li>
 </ul>
 
 <h3>Instructions:</h3>
