@@ -18,7 +18,7 @@ docker run -it --dns=150.163.2.4 --dns-search=dpi.inpe.br --expose=22 --expose=1
 
 # install additional compilers
 add-apt-repository ppa:ubuntu-toolchain-r/test
-apt-get update && apt-get install gcc-4.9 g++-4.9 cpp-4.9 gfortran-4.9 g++
+apt-get update && yes | apt-get install gcc-4.9 g++-4.9 cpp-4.9 gfortran-4.9 g++
 
 
 # install cityhash
